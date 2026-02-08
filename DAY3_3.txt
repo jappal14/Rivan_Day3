@@ -1,0 +1,44 @@
+P1 STATIC ROUTE: VLAN 20, VLAN 100
+!@P1
+config t
+ip route 10.2.2.0 255.255.255.0 10.2.1.1 1
+ip route 10.2.2.0 255.255.255.0 10.2.1.2 5
+ip route 192.168.1.128 255.255.255.224 10.2.1.1 1
+ip route 192.168.1.128 255.255.255.224 10.2.1.2 5
+!!dahil endpoint default route:
+ip route 0.0.0.0 0.0.0.0 10.2.1.1 1 
+ip route 0.0.0.0 0.0.0.0 10.2.1.2 5
+end
+show run | inc route
+
+
+
+
+corebaba
+config t
+no logging console
+enbale secret pass
+interface vlan 1
+no shut
+ip add 10.22.1.4 255.255.255.0
+router eigrp 100
+network 10.0.0.0
+router ospf 1
+network 0.0.0.0 255.255.255.255 area 0
+router bgp 1
+network 10.0.0.0
+end
+
+
+
+
+!@R4
+conf t
+int e3/3
+no shut
+ip add dhcp
+ip ospf 1 area 0
+exit
+router eigrp 100
+network 208.8.8.0 0.0.0.255
+end

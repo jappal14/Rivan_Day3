@@ -1,0 +1,221 @@
+review1: using 10.0.0.0/8 compute for the design for skyes.com using CSI
+
+1500 users
+C 1500 = 11b
+S /32 - 11 = /21
+I ipasok si 8i sa 3rd
+
+networkskyes: 10.0.8.0 /21
+1st: 10.0.8.1
+last:10.0.15.255 
+notskyes: 10.0.16.9 /21
+
+
+
+4500 users
+C 4500 = 13B
+S - /32 - 13 = /19
+I - ipasok si 32i sa 3rd
+
+networkskyes: 10.0.32.0 /19
+1st: 10.0.32.1 /19
+last: 10.0.63.255 /19
+notskyes: 10.0.64.0 /19
+
+
+
+
+200 users
+C = 200 = 8b
+S = /32 - 8 = /24
+I = ipasok si 1i sa 3rd
+
+networkskyes: 10.0.1.0 /24
+1st: 10.0.1.1 /24
+last: 10.0.1.255  
+notskyes: 10.0.2.0 /24
+
+
+
+
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 32 offices/subnets
+
+CONVERT TO 2R: 32 = 2_5POWER
+A /64 + /5 = /69
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x
+0000
+0800
+1000
+1800
+2000
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 512=2r_ offices/subnets
+
+CONVERT TO 512: 32 = 2_5POWER
+A /64 + /5 = /69
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x
+
+
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 512=2r_ offices/subnets
+
+CONVERT TO 512: 32 = 2_ 5POWER
+A /64 + /5 = /69
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x
+
+
+IPV4
+/27 (4TH, 32I)
+
+IPV6
+/65 (5th HEXTET, 1st DEXADECIMAL, 8i)
+/126 (8th hextet, 4th hexa, 4i)
+/78 (5th, 4th, 41)
+
+configure 10 offices sing 2001:db8::/78
+C 10 = 2r_4bits
+A /78 + 4 = /82 (6th hextet, 1st hexa, 4i)
+1st 2001:0db8: 0000:0000:0000:0000:0000:0000 /82
+2nd 2001:0db8: 0000:0000:0000:4000:0000:0000 /82
+3rd 2001:0db8: 0000:0000:0000:8000:0000:0000 /82
+
+4th 2001:0db8: 0000:0000:0000:C000:0000:0000 /82
+
+
+using the 3rd office/subnet
+assign the IPV6 GUA ip on R4's e0/0
+assign the IPV6 GUA on I4/GOOGLE-DNS' e0/0
+
+
+NETWORK: 2001:db8::8000:0:0/82
+
+!@R4, I4-Google
+conf t 
+ipv6 unicast-routing 
+int e0/0
+no shut
+ipv6 add 2001:db8::8000:0:0/82 eui-64
+end
+show ipv6 int brief
+bp6
+
+
+DHCPv6
+int = ipv6 autoconfig
+
+
+configure 32 offices sing 2001::/20
+C 32 = 2r_5bits
+A /20 + 5 = /25 
+I (2nd hextet, 3rd hexa, 8i)
+
+1st 2001:0000: 0000:0000:0000:0000:0000:0000 /25
+2nd 2001:0080: 0000:0000:0000:4000:0000:0000 /25
+3rd 2001:0100: 0000:0000:0000:8000:0000:0000 /25
+
+NETWORK: 2001:100::/25
+first valid: (+1 net)  2001:100:1::/25
+last valid: (-1 any)
+anycast: (last 128 ip add) 2001:010F:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF /25
+
+LAST VALID: 2001:0100:0000:0001:FFFF:FFFF:FFFF:FF7F /64
+
+2001:0100:0000:0001:FFFF:FFFF:FFFF:FF80 /64
+|
+2001:0100:0000:0001:FFFF:FFFF:FFFF:FFFF /64
+
+not network 2001:180::/25
+
+
+using the 2nd office/subnet
+assign the first valid ip on R3's e0/0
+assign the last valid ip on R3's e0/0
+assign the IPV6 GUA on I4/GOOGLE-DNS' e0/0
+
+
+NETWORK: 2001:db8::8000:0:0/82
+
+
+please check this again!!!!
+configure 12 offices sing 2001::/90
+C 12 = 2r_4bits
+A /90 + 4 = /94 
+I (6th hextet, 4 hexa, 4i)
+
+1st 2001:0000: 0000:0000:0000:0000:0000:0000 /90
+2nd 2001:0080: 0000:0000:0000:0400:0000:0000 /90
+3rd 2001:0100: 0000:0000:0000:0800:0000:0000 /90
+
+NETWORK: 
+NETWORK: 2001::8:0:0/25
+first valid: (+1 net)  2001:8:0:1:/25
+last valid: (-1 any)
+anycast: (last 128 ip add) 2001:010F:FFFF:FFFF:FFFF:FFFF:FFFF:FFFF /25
+not network
+find the 3rd office
+
+
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 128=2r_ offices/subnets
+
+CONVERT TO 128: 32 = 2_ 7POWER
+A /64 + /7 = /71
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x x x
+
+
+
+exercise:
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 8=2r_3 offices/subnets
+
+CONVERT TO 8: 32 = 2_ 7POWER
+A /64 + /5 = /69
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x
+
+
+0000
+2000
+4000
+8000
+a000
+c000
+e000
+1000
+
+
+
+IPV6
+fec0:aabb:fafa:dada::/64 subnet/maximize to 8=2r_3 offices/subnets
+
+CONVERT TO 8: 32 = 2_ 7POWER
+A /64 + /5 = /69
+I
+8 4 2 1 8 4 2 1 8 4 2 1 8 4 2 1
+x x x x x
+
+
+0000
+0080
+4000
+8000
+a000
+c000
+e000
+1000
+

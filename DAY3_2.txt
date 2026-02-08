@@ -1,0 +1,53 @@
+exam lab1
+cafe:cafe:cafe::/48 subnet mo sa 512 = 9b subnets 
+0000, 0080,0100,0180.0200,0280,0300
+/48 + /9 = /57
+
+ 4 4 1 = 9 = 8i (3rd 0)
+
+!@P1
+config t
+ipv6 unicast-routing
+int lo 1
+ ipv6 add cafe:cafe:cafe:0000::f/57
+int lo 2
+ ipv6 add cafe:cafe:cafe:1212:0080::f/57
+int lo 3
+ ipv6 add cafe:cafe:cafe:1212:0100::f/57
+int lo 4
+ ipv6 add cafe:cafe:cafe:1212:0180::f/57
+int lo 5
+ ipv6 add cafe:cafe:cafe:1212:0200::f/57
+int lo 6
+ ipv6 add cafe:cafe:cafe:1212:0280::f/57
+ do sh ipv6 int brief
+
+
+exam lab2
+bebe:baba:caca:dada::/48 subnet to 32 subnets 
+CAI
+C: 32i is 2r_5
+A: /64 + 5b = /69
+
+ 4 1  = 5 = 8i (2nd 0)
+
+0000
+0800
+1000
+1800
+2000
+
+
+config t
+ipv6 unicast-routing
+int lo 1
+ ipv6 add bebe:baba:caca:dada:0000::f/69
+int lo 2
+ ipv6 add bebe:baba:caca:dada:0800::f/69
+int lo 3
+ ipv6 add bebe:baba:caca:dada:1000::f/69
+int lo 4
+ ipv6 add bebe:baba:caca:dada:1800::f/69
+int lo 5
+ ipv6 add bebe:baba:caca:dada:2000::f/69
+ do sh ipv6 int brief
